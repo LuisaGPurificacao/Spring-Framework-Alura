@@ -1,10 +1,8 @@
-package br.com.alura.gerenciador.banco;
+package br.com.alura.gerenciador.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import br.com.alura.gerenciador.model.Empresa;
 
 public class Banco {
 
