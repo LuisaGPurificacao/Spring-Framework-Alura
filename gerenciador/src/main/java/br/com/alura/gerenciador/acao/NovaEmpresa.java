@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.alura.gerenciador.model.Banco;
 import br.com.alura.gerenciador.model.Empresa;
 
-public class NovaEmpresa {
+public class NovaEmpresa implements Acao {
 
 	public String executar(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
