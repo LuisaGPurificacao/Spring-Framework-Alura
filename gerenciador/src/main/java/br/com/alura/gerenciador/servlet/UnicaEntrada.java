@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.alura.gerenciador.acao.Acao;
 
@@ -19,6 +20,15 @@ public class UnicaEntrada extends HttpServlet {
 			throws ServletException, IOException {
 
 		String paramAcao = request.getParameter("acao");
+
+		HttpSession sessao = request.getSession();
+		boolean usuarioNaoEstaLogado = (sessao.getAttribute("usuarioLogado") == null);
+		boolean ehUmaAcaoProtegida = !(paramAcao.equals("Login") || paramAcao.equals("LoginForm"));
+
+		if (ehUmaAcaoProtegida && usuarioNaoEstaLogado) {
+			response.sendRedirect("redirect:entrada?acao=LoginForm");
+			return;
+		}
 
 		String nomeDaClasse = "br.com.alura.gerenciador.acao." + paramAcao;
 
@@ -39,7 +49,7 @@ public class UnicaEntrada extends HttpServlet {
 //		} else if (paramAcao.equals("RemoveEmpresa")) {
 //			RemoveEmpresa acao = new RemoveEmpresa();
 //			nome = acao.executar(request, response);
-//		} else if (paramAcao.equals("MostraEmpresa")) {
+//		} else if (paramAcao.equals("MostraaEmpresa")) {
 //			MostraEmpresa acao = new MostraEmpresa();
 //			nome = acao.executar(request, response);
 //		} else if (paramAcao.equals("AlteraEmpresa")) {

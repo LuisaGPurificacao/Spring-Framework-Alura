@@ -12,13 +12,17 @@
 </head>
 <body>
 
+	<c:import url="logout-parcial.jsp" />
+
+	<h3>Usuario Logado: ${usuarioLogado.login }</h3>
+
 	<c:if test="${ not empty empresa }">
 		<h2>Empresa ${ empresa } cadastrada com sucesso!</h2>
 	</c:if>
 
 	<ul>
 		<c:forEach items="${ lista }" var="empresa">
-			<li>${ empresa.nome }- <fmt:formatDate
+			<li>${ empresa.nome }-<fmt:formatDate
 					value="${ empresa.dataAbertura }" pattern="dd/MM/yyyy" /> <a
 				href="/gerenciador/entrada?acao=MostraEmpresa&id=${empresa.id}"
 				style="color: blue; text-decoration: none">editar</a> <a
