@@ -8,5 +8,6 @@ primary key (id)
 );
 
 insert into produto(nome, descricao) values ('Notebook', 'Notebook Samsung');
+insert into produto(nome, descricao) values ('Geladeira', 'Geladeira azul');
 
 select * from produto;
