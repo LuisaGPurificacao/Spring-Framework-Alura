@@ -9,9 +9,9 @@ public class TestaRemocao {
 		Connection con = ConnectionFactory.getConexao();
 
 		PreparedStatement stmt = con.prepareStatement("delete from produto where id > ?");
-		
+
 		stmt.setInt(1, 3);
-		
+
 		stmt.execute();
 
 		int linhasModificadas = stmt.getUpdateCount();
