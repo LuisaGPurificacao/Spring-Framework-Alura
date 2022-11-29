@@ -6,10 +6,11 @@ import java.util.List;
 
 import br.com.alura.jdbc.dao.CategoriaDAO;
 import br.com.alura.jdbc.dao.ProdutoDAO;
+import br.com.alura.jdbc.factory.ConnectionFactory;
 import br.com.alura.jdbc.model.Categoria;
 import br.com.alura.jdbc.model.Produto;
 
-public class TestagemListagemCategorias {
+public class TestaListagemCategorias {
 
 	public static void main(String[] args) throws SQLException {
 
