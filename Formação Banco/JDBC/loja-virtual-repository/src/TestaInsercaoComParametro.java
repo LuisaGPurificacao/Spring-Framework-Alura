@@ -19,7 +19,9 @@ public class TestaInsercaoComParametro {
 //		System.out.println("Insira a descrição:");
 //		String descricao2 = scan.next() + scan.nextLine();
 
-		try (Connection con = ConnectionFactory.getConexao()) {
+		ConnectionFactory conFactory = new ConnectionFactory();
+
+		try (Connection con = conFactory.getConexao()) {
 			con.setAutoCommit(false);
 
 			try (PreparedStatement stmt = con.prepareStatement("insert into produto (nome, descricao) values (?, ?)",

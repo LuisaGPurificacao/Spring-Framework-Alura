@@ -7,7 +7,8 @@ public class TestaInsercao {
 
 	public static void main(String[] args) throws SQLException {
 
-		Connection con = ConnectionFactory.getConexao();
+		ConnectionFactory conFactory = new ConnectionFactory();
+		Connection con = conFactory.getConexao();
 
 		Statement stmt = con.createStatement();
 

@@ -1,15 +1,27 @@
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public abstract class ConnectionFactory {
+import javax.sql.DataSource;
 
-	public static Connection getConexao() throws SQLException {
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-		Connection connection = DriverManager.getConnection(
-				"jdbc:mysql://localhost/loja_virtual?useTimezone=true&serverTimezone=UTC", "root", "test123");
+public class ConnectionFactory {
 
-		return connection;
+	public DataSource dataSource;
+
+	public ConnectionFactory() {
+		ComboPooledDataSource cpds = new ComboPooledDataSource();
+		cpds.setJdbcUrl("jdbc:mysql://localhost/loja_virtual?useTimezone=true&serverTimezone=UTC");
+		cpds.setUser("root");
+		cpds.setPassword("test123");
+
+		cpds.setMaxPoolSize(15);
+
+		this.dataSource = cpds;
+	}
+
+	public Connection getConexao() throws SQLException {
+		return this.dataSource.getConnection();
 	}
 
 }

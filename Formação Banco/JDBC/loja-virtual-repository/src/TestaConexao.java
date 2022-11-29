@@ -7,11 +7,12 @@ public class TestaConexao {
 
 		System.out.println("Abrindo conexao");
 
-		Connection connection = ConnectionFactory.getConexao();
+		ConnectionFactory conFactory = new ConnectionFactory();
+		Connection con = conFactory.getConexao();
 		
 		System.out.println("Fechando conexao");
 		
-		connection.close();
+		con.close();
 
 	}
 
