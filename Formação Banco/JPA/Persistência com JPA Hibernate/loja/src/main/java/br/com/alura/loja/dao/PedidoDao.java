@@ -1,5 +1,8 @@
 package br.com.alura.loja.dao;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.alura.loja.model.Pedido;
@@ -27,6 +30,18 @@ public class PedidoDao {
 
 	public Pedido buscarPorId(Long id) {
 		return em.find(Pedido.class, id);
+	}
+
+	public BigDecimal valorTotalVendido() {
+		String jpql = "select sum(p.valorTotal) FROM Pedido p";
+		return em.createQuery(jpql, BigDecimal.class).getSingleResult();
+	}
+
+	public List<Object[]> relatorioDeVendas() {
+		String jpql = "SELECT produto.nome, SUM(item.quantidade), MAX(pedido.data) "
+				+ "FROM Pedido pedido JOIN pedido.itens item JOIN item.produto produto "
+				+ "GROUP BY produto.nome ORDER BY item.quantidade DESC";
+		return em.createQuery(jpql, Object[].class).getResultList();
 	}
 
 }
