@@ -46,10 +46,10 @@ public class ProdutoDao {
 		String jpql = "select p.preco from Produto p where p.nome like ?1";
 		return em.createQuery(jpql, BigDecimal.class).setParameter(1, "%" + nome + "%").getSingleResult();
 	}
-	
+
 	public List<Produto> buscarPorNomeCategoria(String nome) {
-		String jpql = "select p from Produto p where p.categoria.nome like :nome";
-		return em.createQuery(jpql, Produto.class).setParameter("nome", "%" + nome + "%").getResultList();
+		return em.createNamedQuery("Produto.produtosPorCategoria", Produto.class).setParameter("nome", "%" + nome + "%")
+				.getResultList();
 	}
-	
+
 }
