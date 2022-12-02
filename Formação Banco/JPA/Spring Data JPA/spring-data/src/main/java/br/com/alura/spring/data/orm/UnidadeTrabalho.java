@@ -25,7 +25,7 @@ public class UnidadeTrabalho {
 
 	@Override
 	public String toString() {
-		return "Unidade de trabalho " + id + "\n" + descricao + "\n" + endereco + "\nFuncionários:\n" + funcionarios;
+		return "UnidadeTrabalho [id=" + id + ", descricao=" + descricao + ", endereco=" + endereco + "]";
 	}
 
 	public UnidadeTrabalho() {

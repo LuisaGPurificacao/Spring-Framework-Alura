@@ -1,8 +1,10 @@
 package br.com.alura.spring.data.orm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,8 +20,8 @@ public class Cargo {
 	private Integer id;
 	private String descricao;
 
-	@OneToMany(mappedBy = "cargo")
-	private List<Funcionario> funcionarios;
+	@OneToMany(mappedBy = "cargo", fetch = FetchType.EAGER)
+	private List<Funcionario> funcionarios = new ArrayList<>();
 
 	@Override
 	public String toString() {

@@ -7,12 +7,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.alura.spring.data.orm.Cargo;
 import br.com.alura.spring.data.orm.Funcionario;
 import br.com.alura.spring.data.orm.UnidadeTrabalho;
 import br.com.alura.spring.data.repository.CargoRepository;
+import br.com.alura.spring.data.repository.FuncionarioPagingRepository;
 import br.com.alura.spring.data.repository.FuncionarioRepository;
 import br.com.alura.spring.data.repository.UnidadeTrabalhoRepository;
 
@@ -23,12 +28,14 @@ public class CrudFuncionarioService {
 	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	private final FuncionarioRepository repository;
+	private final FuncionarioPagingRepository pagingRepository;
 	private final CargoRepository cargoRepository;
 	private final UnidadeTrabalhoRepository unidadeTrabalhoRepository;
 
-	public CrudFuncionarioService(FuncionarioRepository repository, CargoRepository cargoRepository,
-			UnidadeTrabalhoRepository unidadeTrabalhoRepository) {
+	public CrudFuncionarioService(FuncionarioRepository repository, FuncionarioPagingRepository pagingRepository,
+			CargoRepository cargoRepository, UnidadeTrabalhoRepository unidadeTrabalhoRepository) {
 		this.repository = repository;
+		this.pagingRepository = pagingRepository;
 		this.cargoRepository = cargoRepository;
 		this.unidadeTrabalhoRepository = unidadeTrabalhoRepository;
 	}
@@ -54,7 +61,7 @@ public class CrudFuncionarioService {
 				break;
 
 			case 3:
-				visualizar();
+				visualizar(scan);
 				break;
 
 			case 4:
@@ -138,8 +145,17 @@ public class CrudFuncionarioService {
 		System.out.println("Atualizado.");
 	}
 
-	private void visualizar() {
-		Iterable<Funcionario> funcionarios = repository.findAll();
+	private void visualizar(Scanner scan) {
+		System.out.println("Qual pagina voce desejo visualizar?");
+		Integer page = scan.nextInt();
+
+		Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.ASC, "nome"));
+
+		Page<Funcionario> funcionarios = pagingRepository.findAll(pageable);
+
+		System.out.println(funcionarios);
+		System.out.println("Pagina atual: " + funcionarios.getNumber());
+		System.out.println("Total elementos: " + funcionarios.getTotalElements());
 		funcionarios.forEach(f -> System.out.println(f));
 	}
 
