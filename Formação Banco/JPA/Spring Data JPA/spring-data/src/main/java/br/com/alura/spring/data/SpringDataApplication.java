@@ -6,7 +6,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.com.alura.spring.data.service.*;
+import br.com.alura.spring.data.service.CrudCargoService;
+import br.com.alura.spring.data.service.CrudFuncionarioService;
+import br.com.alura.spring.data.service.CrudUnidadeTrabalhoService;
+import br.com.alura.spring.data.service.RelatorioFuncionarioDinamico;
+import br.com.alura.spring.data.service.RelatoriosService;
 
 @SpringBootApplication
 public class SpringDataApplication implements CommandLineRunner {
@@ -15,15 +19,18 @@ public class SpringDataApplication implements CommandLineRunner {
 	private final CrudUnidadeTrabalhoService unidadeService;
 	private final CrudFuncionarioService funcionarioService;
 	private final RelatoriosService relatoriosService;
+	private final RelatorioFuncionarioDinamico relatorioFuncDin;
 
 	private boolean system = true;
 
 	public SpringDataApplication(CrudCargoService cargoService, CrudUnidadeTrabalhoService unidadeService,
-			CrudFuncionarioService funcionarioService, RelatoriosService relatoriosService) {
+			CrudFuncionarioService funcionarioService, RelatoriosService relatoriosService,
+			RelatorioFuncionarioDinamico relatorioFuncDin) {
 		this.cargoService = cargoService;
 		this.unidadeService = unidadeService;
 		this.funcionarioService = funcionarioService;
 		this.relatoriosService = relatoriosService;
+		this.relatorioFuncDin = relatorioFuncDin;
 	}
 
 	public static void main(String[] args) {
@@ -41,6 +48,7 @@ public class SpringDataApplication implements CommandLineRunner {
 			System.out.println("2- Unidade de trabalho");
 			System.out.println("3- Funcionario");
 			System.out.println("4- Relatorios");
+			System.out.println("5- Relatorio funcionario dinamico");
 
 			int action = scan.nextInt();
 
@@ -52,6 +60,8 @@ public class SpringDataApplication implements CommandLineRunner {
 				funcionarioService.inicial(scan);
 			} else if (action == 4) {
 				relatoriosService.inicial(scan);
+			} else if (action == 5) {
+				relatorioFuncDin.inicial(scan);
 			} else {
 				system = false;
 			}

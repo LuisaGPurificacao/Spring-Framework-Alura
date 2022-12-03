@@ -17,7 +17,6 @@ import br.com.alura.spring.data.orm.Cargo;
 import br.com.alura.spring.data.orm.Funcionario;
 import br.com.alura.spring.data.orm.UnidadeTrabalho;
 import br.com.alura.spring.data.repository.CargoRepository;
-import br.com.alura.spring.data.repository.FuncionarioPagingRepository;
 import br.com.alura.spring.data.repository.FuncionarioRepository;
 import br.com.alura.spring.data.repository.UnidadeTrabalhoRepository;
 
@@ -28,14 +27,12 @@ public class CrudFuncionarioService {
 	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	private final FuncionarioRepository repository;
-	private final FuncionarioPagingRepository pagingRepository;
 	private final CargoRepository cargoRepository;
 	private final UnidadeTrabalhoRepository unidadeTrabalhoRepository;
 
-	public CrudFuncionarioService(FuncionarioRepository repository, FuncionarioPagingRepository pagingRepository,
-			CargoRepository cargoRepository, UnidadeTrabalhoRepository unidadeTrabalhoRepository) {
+	public CrudFuncionarioService(FuncionarioRepository repository, CargoRepository cargoRepository,
+			UnidadeTrabalhoRepository unidadeTrabalhoRepository) {
 		this.repository = repository;
-		this.pagingRepository = pagingRepository;
 		this.cargoRepository = cargoRepository;
 		this.unidadeTrabalhoRepository = unidadeTrabalhoRepository;
 	}
@@ -151,7 +148,7 @@ public class CrudFuncionarioService {
 
 		Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.ASC, "nome"));
 
-		Page<Funcionario> funcionarios = pagingRepository.findAll(pageable);
+		Page<Funcionario> funcionarios = repository.findAll(pageable);
 
 		System.out.println(funcionarios);
 		System.out.println("Pagina atual: " + funcionarios.getNumber());
