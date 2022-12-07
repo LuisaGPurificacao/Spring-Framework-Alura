@@ -1,5 +1,7 @@
-use alura;
+create database mudi;
 
-select * from cargos;
-select * from unidade_trabalho;
-select * from funcionarios;
+use mudi;
+
+select * from pedido;
+
+commit;
