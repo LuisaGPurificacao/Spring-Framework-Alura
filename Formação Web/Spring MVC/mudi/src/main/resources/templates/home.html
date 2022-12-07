@@ -11,6 +11,23 @@
 </head>
 <body>
 	<div class="container">
+
+		<div class="container-fluid bg-dark text-light p-5 mb-0">
+			<h1 class="display-4">Meus Pedidos</h1>
+		</div>
+
+		<nav
+			class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+			<div class="navbar-nav">
+				<a class="nav-item nav-link active" href="">Todos</a> <a
+					class="nav-item nav-link" href="">Aguardando</a> <a
+					class="nav-item nav-link" href="">Aprovado</a> <a
+					class="nav-item nav-link" href="">Entregue</a>
+			</div>
+			<a href=""><button class="btn btn-outline-success my-2 my-sm-0"
+					type="submit">Novo</button></a>
+		</nav>
+
 		<div class="card" th:each="pedido : ${pedidos}">
 			<div class="card-header" th:text="${pedido.nome}">Nome do
 				produto</div>
