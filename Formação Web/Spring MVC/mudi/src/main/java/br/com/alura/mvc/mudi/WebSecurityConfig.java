@@ -26,9 +26,10 @@ public class WebSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authz) -> {
 			try {
-				authz.anyRequest().authenticated().and()
-						.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/home", true).permitAll())
-						.logout(logout -> logout.logoutUrl("/logout")).csrf().disable();
+				authz.antMatchers("/home/**").permitAll().anyRequest().authenticated().and()
+						.formLogin(
+								form -> form.loginPage("/login").defaultSuccessUrl("/usuario/pedido", true).permitAll())
+						.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/home")).csrf().disable();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
