@@ -25,7 +25,7 @@
 </head>
 
 <div th:fragment="logo" class="">
-	<div class="row logo-container mb-3 p-3 d-flex justify-content-between">
+	<div class="logo-container mb-3 p-3 d-flex justify-content-between">
 		<span class="logo ml-2">mudi</span> <span class="mr-2 mt-3"> <a
 			sec:authorize="!isAuthenticated()" class="text-light" href="/login">login</a>
 			<a onClick="document.querySelector('#form-login').submit()"
@@ -35,11 +35,12 @@
 
 		</span>
 	</div>
-	<div class="row mb-2" sec:authorize="isAuthenticated()"> 
+	<div sec:authorize="isAuthenticated()">
 		<div class="col">
 			<nav class="nav">
 				<a class="nav-link" th:href="@{/home}">Home</a> <a class="nav-link"
-					th:href="@{/usuario/pedido}">Meus Pedidos</a>
+					th:href="@{/usuario/pedido}">Meus Pedidos</a> <a class="nav-link"
+					th:href="@{/oferta}">Faça sua oferta</a>
 			</nav>
 		</div>
 	</div>

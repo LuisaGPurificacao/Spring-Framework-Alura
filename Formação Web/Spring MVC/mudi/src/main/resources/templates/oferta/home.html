@@ -1,59 +1,54 @@
-<!DOCTYPE html>
 <html>
-<head th:replace="~{base :: head}">
-</head>
-<body>
-
-	<div th:replace="~{base :: logo}"></div>
-
-	<div class="container">
-
-		<div th:replace="~{base :: titulo('Últimos Pedidos')}"></div>
-
-		<div class="card mb-3 mt-3" th:each="pedido : ${pedidos}">
-
-			<th:block th:switch="${pedido.status.name()}">
-				<div th:case="'AGUARDANDO'" class="card-header alert-warning"
-					th:text="${pedido.nome}">Nome do produto</div>
-				<div th:case="'APROVADO'" class="card-header alert-success"
-					th:text="${pedido.nome}">Nome do produto</div>
-				<div th:case="'ENTREGUE'" class="card-header alert-dark"
-					th:text="${pedido.nome}">Nome do produto</div>
-			</th:block>
-
-			<div class="card-body">
-				<div class="row">
-					<div class="col-12 col-sm-8 mb-3">
-						<div class="row">
-							<div class="col-md-5">
-								Valor: <span th:if="${pedido.valor != null}"
-									th:text="${'R$' + #numbers.formatDecimal(pedido.valor,3,'POINT',2,'COMMA')}">200,99</span>
+	<head th:replace="~{base :: head}"></head>
+	<body onload="onLoad()">
+		<div th:replace="~{base :: logo}"></div>
+	
+		<div class="container" id="ofertas">
+			<div th:replace="~{base :: titulo('Faça sua Oferta')}"></div>
+						
+			<div class="card mb-3 mt-3" v-for="pedido in pedidos">
+				<div class="card-header alert-dark">{{pedido.nome}}</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12 col-sm-8  mb-3">
+							<div class="row">
+								<div class="col-md-5">Valor: <input /></div>
+								<div class="col-md-7">Data da entrega: <input /></div>
 							</div>
-							<div class="col-md-7">
-								Data da entrega: <span
-									th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}">10/02/2020</span>
+							<div>Produto</div>
+							<div> <a v-bind:href="pedido.urlProduto">{{pedido.nome}}</a></div>
+							
+							<div>Descrição</div>
+							<div>
+								<textarea class="form-control">{{pedido.descricao}}</textarea>
 							</div>
 						</div>
-						<div>Produto</div>
-						<div>
-							<input class="form-control" th:value="${pedido.urlProduto}"
-								value="url do produto" />
-						</div>
-
-						<div>Descrição</div>
-						<div>
-							<textarea class="form-control" th:text="${pedido.descricao}">descrição do pedido</textarea>
-						</div>
-					</div>
-					<div class="col-12 col-sm-4">
-						<div>
-							<img class="img-thumbnail" th:src="${pedido.urlImagem}" src=""
-								alt="Imagem do produto" />
+						<div class="col-12 col-sm-4">
+							<div>
+								<img class="img-thumbnail" v-bind:src="pedido.urlImagem"/>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</body>
+		<script>
+			function onLoad() {
+				var app = new Vue(
+				{
+					el : '#ofertas',
+					data : {
+						pedidos : []
+					},
+					mounted () {
+						axios
+					      .get('http://localhost:8080/api/pedidos/aguardando')
+					      .then(response => (this.pedidos = response.data))
+					}
+				});
+			}
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	</body>
 </html>
