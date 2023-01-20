@@ -1,11 +1,16 @@
-create database vollmed_api;
+create database parkingcontrol;
 
-use vollmed_api;
+use parkingcontrol;
+delete from tb_user;
+select * from tb_parking_spot;
+select * from tb_user;
+select * from tb_role;
+select * from tb_users_rolestb_users_rolesuser_id;
 
-select * from medicos;
-select * from pacientes;
-select * from usuarios;
+SET FOREIGN_KEY_CHECKS = 0;
 
-insert into usuarios values (1, 'ana.souza@voll.med', '$2a$10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5.');
+insert into tb_users_roles values('06b0ee8d-6800-4a26-bea9-3aea9afa5bc3', '1');
 
-commit;
+SET FOREIGN_KEY_CHECKS = 1;
+
+insert into tb_users_roles values('', '2');
