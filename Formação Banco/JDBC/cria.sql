@@ -1,13 +1,7 @@
-use loja_virtual;
+use vollmed_api;
 
-create table PRODUTO(
-id int auto_increment,
-nome varchar(50) not null,
-descricao varchar(255),
-primary key (id)
-);
+select * from usuarios;
 
-insert into produto(nome, descricao) values ('Notebook', 'Notebook Samsung');
-insert into produto(nome, descricao) values ('Geladeira', 'Geladeira azul');
+insert into usuarios values (1, 'ana.souza@voll.med', '$2a$10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5.');
 
-select * from produto;
+commit;
